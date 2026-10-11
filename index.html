@@ -1,0 +1,718 @@
+<!DOCTYPE html>
+<html lang="fa" dir="rtl">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>دوره جامع آمار استنباطی — نسخه تعاملی</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Vazirmatn:wght@300;400;600;700;900&display=swap" rel="stylesheet">
+<script>
+window.MathJax = {
+  tex: { inlineMath: [['$', '$'], ['\\(', '\\)']], displayMath: [['$$', '$$'], ['\\[', '\\]']] },
+  svg: { fontCache: 'global' }
+};
+</script>
+<script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-svg.js"></script>
+<style>
+  :root{
+    --bg:#f4f7f6;
+    --card:#ffffff;
+    --ink:#132a2a;
+    --muted:#5b7373;
+    --teal:#0f766e;
+    --teal-soft:#e3f1ef;
+    --accent:#c2410c;
+    --amber:#fff7ed;
+    --line:#d7e4e2;
+    --shadow:0 6px 24px rgba(15,118,110,.08);
+  }
+  *{box-sizing:border-box}
+  html{scroll-behavior:smooth}
+  body{
+    margin:0;
+    font-family:'Vazirmatn',system-ui,-apple-system,'Segoe UI',sans-serif;
+    background:var(--bg);
+    color:var(--ink);
+    line-height:2;
+    font-size:17px;
+  }
+  .wrap{max-width:940px;margin:0 auto;padding:0 20px 80px}
+
+  /* ---------- HERO ---------- */
+  header.hero{
+    background:linear-gradient(135deg,#0f766e 0%,#115e59 55%,#134e4a 100%);
+    color:#fff;
+    padding:64px 20px 72px;
+    text-align:center;
+    position:relative;
+    overflow:hidden;
+  }
+  header.hero::after{
+    content:"";
+    position:absolute;inset:auto -50px -80px -50px;height:160px;
+    background:var(--bg);
+    border-radius:50% 50% 0 0;
+  }
+  .hero-inner{max-width:820px;margin:0 auto;position:relative;z-index:2}
+  .kicker{
+    display:inline-block;
+    background:rgba(255,255,255,.16);
+    border:1px solid rgba(255,255,255,.3);
+    padding:4px 16px;border-radius:999px;
+    font-size:.85rem;letter-spacing:.4px;margin-bottom:18px;
+  }
+  header.hero h1{font-size:2.35rem;font-weight:900;margin:0 0 12px;line-height:1.5}
+  header.hero p{margin:0;font-size:1.05rem;opacity:.92;font-weight:300}
+
+  /* ---------- SECTIONS ---------- */
+  section{
+    background:var(--card);
+    border:1px solid var(--line);
+    border-radius:18px;
+    padding:30px 32px;
+    margin-top:34px;
+    box-shadow:var(--shadow);
+  }
+  h2{
+    font-size:1.5rem;font-weight:800;color:var(--teal);
+    margin:0 0 18px;padding-bottom:12px;
+    border-bottom:3px solid var(--teal-soft);
+    display:flex;align-items:center;gap:12px;
+  }
+  h2 .num{
+    background:var(--teal);color:#fff;
+    width:38px;height:38px;border-radius:12px;
+    display:grid;place-items:center;
+    font-size:1rem;flex:0 0 auto;
+  }
+  h3{font-size:1.12rem;font-weight:700;margin:26px 0 10px;color:#0b5f59}
+  p{margin:0 0 14px}
+  ul{padding-inline-start:22px;margin:0 0 16px}
+  li{margin-bottom:9px}
+
+  /* ---------- VOCAB / TERM CARDS ---------- */
+  .terms{display:grid;grid-template-columns:repeat(auto-fit,minmax(240px,1fr));gap:14px;margin:18px 0}
+  .term{
+    background:var(--teal-soft);
+    border-right:4px solid var(--teal);
+    border-radius:12px;padding:14px 16px;
+  }
+  .term b{display:block;color:var(--teal);margin-bottom:4px}
+  .term span{font-size:.94rem;color:#254545}
+
+  /* ---------- TABLES ---------- */
+  .tbl-scroll{overflow-x:auto;margin:18px 0;border-radius:12px;border:1px solid var(--line)}
+  table{width:100%;border-collapse:collapse;font-size:.95rem;background:#fff;min-width:560px}
+  th,td{padding:12px 14px;text-align:right;border-bottom:1px solid var(--line)}
+  th{background:var(--teal);color:#fff;font-weight:700}
+  tbody tr:nth-child(even){background:#fafcfc}
+  tbody tr:hover{background:var(--teal-soft)}
+  td:first-child{font-weight:600;color:var(--teal)}
+
+  /* ---------- CALLOUTS ---------- */
+  .callout{
+    border-radius:14px;padding:18px 20px;margin:20px 0;
+    border-right:5px solid var(--accent);
+    background:var(--amber);
+  }
+  .callout .lbl{font-weight:800;color:var(--accent);display:block;margin-bottom:6px}
+  .callout.tip{border-right-color:var(--teal);background:var(--teal-soft)}
+  .callout.tip .lbl{color:var(--teal)}
+
+  /* ---------- MATH ---------- */
+  .mathbox{
+    direction:ltr;text-align:center;
+    background:#f8fbfb;border:1px dashed var(--teal);
+    border-radius:14px;padding:18px 14px;margin:20px 0;
+    font-size:1.05rem;overflow-x:auto;
+  }
+  .mathbox mjx-container{font-size:115% !important}
+
+  /* ---------- INTERACTIVE LAB ---------- */
+  .lab{
+    background:linear-gradient(180deg,#f0f9f8 0%,#ffffff 100%);
+    border:2px solid var(--teal);
+    border-radius:18px;padding:24px;margin:26px 0;
+  }
+  .lab-head{display:flex;align-items:center;gap:10px;margin-bottom:6px}
+  .lab-head .badge{
+    background:var(--accent);color:#fff;font-size:.75rem;font-weight:700;
+    padding:3px 11px;border-radius:999px;
+  }
+  .lab-head h4{margin:0;font-size:1.15rem;color:var(--teal)}
+  .lab-sub{font-size:.9rem;color:var(--muted);margin:0 0 20px}
+
+  .ctrl{margin-bottom:20px}
+  .ctrl-top{display:flex;justify-content:space-between;align-items:baseline;margin-bottom:8px}
+  .ctrl-top label{font-weight:600;font-size:.98rem}
+  .val{
+    font-family:'Vazirmatn',monospace;font-weight:800;color:var(--accent);
+    background:#fff;border:1px solid var(--line);border-radius:8px;
+    padding:2px 12px;font-size:1rem;min-width:74px;text-align:center;display:inline-block;
+  }
+  input[type=range]{
+    -webkit-appearance:none;appearance:none;
+    width:100%;height:8px;border-radius:999px;
+    background:linear-gradient(90deg,var(--teal) 0%,#5eead4 100%);
+    outline:none;cursor:pointer;
+  }
+  input[type=range]::-webkit-slider-thumb{
+    -webkit-appearance:none;appearance:none;
+    width:24px;height:24px;border-radius:50%;
+    background:#fff;border:4px solid var(--accent);
+    box-shadow:0 2px 8px rgba(0,0,0,.2);cursor:grab;
+    transition:transform .15s;
+  }
+  input[type=range]::-webkit-slider-thumb:active{transform:scale(1.18);cursor:grabbing}
+  input[type=range]::-moz-range-thumb{
+    width:22px;height:22px;border-radius:50%;
+    background:#fff;border:4px solid var(--accent);cursor:grab;
+  }
+
+  .readouts{display:grid;grid-template-columns:repeat(auto-fit,minmax(150px,1fr));gap:12px;margin-top:22px}
+  .readout{
+    background:#fff;border:1px solid var(--line);border-radius:12px;
+    padding:14px;text-align:center;
+    transition:transform .2s;
+  }
+  .readout .k{font-size:.82rem;color:var(--muted);display:block;margin-bottom:4px}
+  .readout .v{font-size:1.35rem;font-weight:900;color:var(--teal);font-variant-numeric:tabular-nums}
+  .readout.pulse{transform:scale(1.05)}
+
+  /* CI VISUAL */
+  .ci-viz{margin-top:24px;background:#fff;border:1px solid var(--line);border-radius:14px;padding:20px 18px}
+  .ci-viz .cap{font-size:.88rem;color:var(--muted);margin-bottom:14px;text-align:center}
+  .ci-track{
+    position:relative;height:46px;border-radius:10px;
+    background:repeating-linear-gradient(90deg,#eef6f5 0 2px,transparent 2px 20px);
+    border:1px solid var(--line);
+  }
+  .ci-band{
+    position:absolute;top:50%;transform:translateY(-50%);
+    height:24px;border-radius:6px;
+    background:linear-gradient(90deg,#0f766e,#2dd4bf);
+    transition:right .28s ease,width .28s ease;
+    display:grid;place-items:center;
+  }
+  .ci-point{
+    position:absolute;top:50%;transform:translate(-50%,-50%);
+    width:4px;height:34px;background:var(--accent);border-radius:2px;z-index:3;
+  }
+  .ci-point::after{
+    content:"x̄";position:absolute;top:-24px;left:50%;transform:translateX(-50%);
+    font-size:.8rem;font-weight:800;color:var(--accent);
+  }
+  .ci-scale{display:flex;justify-content:space-between;font-size:.78rem;color:var(--muted);margin-top:6px}
+
+  /* CONVERGENCE CHART */
+  .chart-wrap{background:#fff;border:1px solid var(--line);border-radius:14px;padding:16px;margin-top:22px}
+  .chart-wrap .cap{font-size:.88rem;color:var(--muted);margin-bottom:8px;text-align:center}
+  svg.chart{width:100%;height:230px;display:block}
+  .bar{transition:height .3s ease,y .3s ease}
+  .gridline{stroke:#e8f0ef;stroke-width:1}
+  .axis{stroke:#b9cfcd;stroke-width:1.2}
+  .axis-lbl{font-size:9px;fill:#7b9191}
+  .bar-lbl{font-size:9px;fill:#0f766e;font-weight:700;font-family:Vazirmatn,sans-serif}
+
+  .btnrow{display:flex;gap:10px;flex-wrap:wrap;margin-top:17px}
+  button.act{
+    font-family:inherit;font-size:.92rem;font-weight:700;
+    background:var(--teal);color:#fff;border:none;
+    padding:10px 20px;border-radius:10px;cursor:pointer;
+    transition:background .2s,transform .1s;
+  }
+  button.act:hover{background:#0b5f59}
+  button.act:active{transform:scale(.97)}
+  button.act.ghost{background:#fff;color:var(--teal);border:2px solid var(--teal)}
+  button.act.ghost:hover{background:var(--teal-soft)}
+
+  /* FORMULA REVEAL */
+  .reveal{
+    background:var(--teal-soft);border-radius:12px;padding:14px 18px;
+    margin:16px 0;transition:all .25s;
+  }
+  .reveal .head{
+    display:flex;justify-content:space-between;align-items:center;
+    cursor:pointer;font-weight:700;color:var(--teal);user-select:none;
+  }
+  .reveal .head .chev{transition:transform .25s;font-size:1.1rem}
+  .reveal.open .head .chev{transform:rotate(180deg)}
+  .reveal .body{max-height:0;overflow:hidden;transition:max-height .35s ease,padding .25s}
+  .reveal.open .body{max-height:900px;padding-top:12px}
+
+  footer{
+    text-align:center;color:var(--muted);font-size:.88rem;
+    margin-top:44px;padding-top:24px;border-top:1px solid var(--line);
+  }
+
+  @media(max-width:600px){
+    body{font-size:16px}
+    header.hero h1{font-size:1.7rem}
+    section{padding:22px 18px}
+    .lab{padding:18px 14px}
+    h2{font-size:1.25rem}
+  }
+  @media(prefers-reduced-motion:reduce){
+    *{transition:none !important;animation:none !important}
+  }
+</style>
+</head>
+<body>
+
+<header class="hero">
+  <div class="hero-inner">
+    <span class="kicker">نسخهٔ تعاملی — خودت اعداد را عوض کن</span>
+    <h1>دورهٔ جامع آمار استنباطی</h1>
+    <p>از یک قاشق آش تا تصمیمی مطمئن دربارهٔ کل دیگ</p>
+  </div>
+</header>
+
+<div class="wrap">
+
+  <!-- ================= INTRO ================= -->
+  <section>
+    <p>تصور کن روبه‌روی یک دیگ بزرگ آش نشسته‌ای. کل دیگ را نمی‌توانی بخوری، اما می‌توانی یک قاشق بچشی و بگویی «نمکش اندازه است». آمار استنباطی همین قاشق است: ما هیچ‌وقت نمی‌توانیم همهٔ جامعهٔ آماری را اندازه بگیریم، پس از یک نمونهٔ درست انتخاب‌شده استفاده می‌کنیم تا دربارهٔ کل جامعه حرف بزنیم — با دانستن اینکه چقدر ممکن است اشتباه کنیم.</p>
+  </section>
+
+  <!-- ================= MODULE 1 ================= -->
+  <section>
+    <h2><span class="num">۱</span> مبانی و هنر نمونه‌گیری</h2>
+
+    <h3>واژگان پایه</h3>
+    <div class="terms">
+      <div class="term"><b>واحد آماری</b><span>کوچک‌ترین عضوی که اطلاعات ما دربارهٔ آن ثبت می‌شود؛ مثلاً یک نفر، یک خانواده یا یک کارخانه.</span></div>
+      <div class="term"><b>جامعهٔ آماری</b><span>مجموعهٔ همهٔ واحدهایی که می‌خواهیم دربارهٔ آن‌ها نتیجه‌گیری کنیم؛ متناهی (کارکنان یک شرکت) یا نامتناهی (تمام پرتاب‌های ممکن یک سکه).</span></div>
+      <div class="term"><b>نمونه</b><span>زیرمجموعه‌ای از جامعه که واقعاً اندازه‌گیری می‌کنیم. کل هنر آمار این است که این زیرمجموعه نمایندهٔ واقعی جامعه باشد.</span></div>
+      <div class="term"><b>سرشماری</b><span>اندازه‌گیری همهٔ اعضای جامعه. دقیق‌ترین راه است، اما گران، کند و گاهی ناممکن — و همین ناممکن بودن است که آمار استنباطی را ضروری می‌کند.</span></div>
+    </div>
+
+    <h3>روش‌های نمونه‌گیری</h3>
+    <div class="tbl-scroll">
+      <table>
+        <thead>
+          <tr><th>روش</th><th>چگونه کار می‌کند</th><th>یک مزیت</th><th>یک عیب</th></tr>
+        </thead>
+        <tbody>
+          <tr><td>تصادفی ساده</td><td>هر عضو جامعه شانس برابر انتخاب دارد</td><td>بی‌طرف‌ترین روش پایه</td><td>نیازمند فهرست کامل جامعه</td></tr>
+          <tr><td>سیستماتیک</td><td>انتخاب هر k-اُمین عضو از یک فهرست</td><td>سریع و ساده</td><td>اگر الگویی در فهرست باشد، اریبی می‌سازد</td></tr>
+          <tr><td>خوشه‌ای</td><td>انتخاب چند «خوشه» (مثلاً چند مدرسه) و بررسی همهٔ اعضایش</td><td>ارزان و عملی در جوامع پراکنده</td><td>خطای نمونه‌گیری بیشتر</td></tr>
+          <tr><td>طبقه‌ای</td><td>تقسیم جامعه به طبقه‌های همگن و نمونه‌گیری متناسب از هر طبقه</td><td>نمایندگی دقیق‌تر زیرگروه‌ها</td><td>نیازمند اطلاعات جانبی دربارهٔ طبقه‌ها</td></tr>
+        </tbody>
+      </table>
+    </div>
+
+    <div class="callout tip">
+      <span class="lbl">نکتهٔ مهم دربارهٔ نمونه‌گیری طبقه‌ای</span>
+      در این روش، شانس انتخاب برای هر عضو لزوماً برابر نیست و این یک نقص نیست، بلکه عمدی است. هدف این است که هر طبقه دقیقاً به اندازهٔ سهم واقعی‌اش در جامعه نمایندگی شود. مثلاً اگر ۲۰ درصد دانشجویان دانشگاه را دانشجویان ارشد تشکیل می‌دهند، ۲۰ درصد نمونه هم باید از آن‌ها باشد.
+    </div>
+
+    <h3>تلهٔ اریبی</h3>
+    <p>اریبی یعنی نمونه به‌طور سیستماتیک از یک سو کج شود. و اینجا مهم‌ترین درس این بخش است:</p>
+    <div class="callout">
+      <span class="lbl">قانون طلایی</span>
+      اریبی با زیاد کردن حجم نمونه حل نمی‌شود؛ فقط با اصلاح روش نمونه‌گیری حل می‌شود.
+    </div>
+    <p>یک نمونهٔ میلیونی از کاربران یک اپلیکیشن خاص، باز هم نمایندهٔ کل جامعه نیست. اگر ورودی کار خراب باشد، خروجی هم خراب است — و بزرگ‌تر کردن ورودی، خرابی را بزرگ‌تر می‌کند، نه کوچک‌تر.</p>
+  </section>
+
+  <!-- ================= MODULE 2 ================= -->
+  <section>
+    <h2><span class="num">۲</span> برآورد و محاسبات</h2>
+
+    <h3>خطای میانگین (خطای استاندارد)</h3>
+    <p>وقتی از نمونه میانگینی حساب می‌کنیم، این میانگین با میانگین واقعی جامعه فرق دارد. مقدار این نوسان را با خطای استاندارد می‌سنجیم:</p>
+
+    <div class="mathbox">
+      $$\sigma_{\bar{x}} = \frac{\sigma}{\sqrt{n}}$$
+    </div>
+
+    <p>که در آن σ انحراف معیار جامعه و n حجم نمونه است. دو نتیجهٔ عملی: هرچه پراکندگی جامعه (σ) بیشتر باشد، برآورد ما نامطمئن‌تر است؛ و هرچه نمونه بزرگ‌تر باشد، برآورد ما مطمئن‌تر.</p>
+
+    <div class="callout tip">
+      <span class="lbl">نکته‌ای که اغلب نادیده می‌ماند</span>
+      به دلیل ریشهٔ دوم، چهار برابر کردن حجم نمونه خطا را فقط نصف می‌کند. دقت، گران است.
+    </div>
+
+    <!-- ============ INTERACTIVE LAB 1 ============ -->
+    <div class="lab">
+      <div class="lab-head">
+        <span class="badge">تعاملی</span>
+        <h4>آزمایشگاه ۱ — ماشین‌حساب زندهٔ خطای استاندارد</h4>
+      </div>
+      <p class="lab-sub">اسلایدرها را حرکت بده و ببین خطای استاندارد چطور تغییر می‌کند. حواست به اثر ریشهٔ دوم باشد.</p>
+
+      <div class="ctrl">
+        <div class="ctrl-top">
+          <label for="sigma">انحراف معیار جامعه (σ)</label>
+          <span class="val" id="sigmaVal">۱۰</span>
+        </div>
+        <input type="range" id="sigma" min="1" max="40" step="1" value="10">
+      </div>
+
+      <div class="ctrl">
+        <div class="ctrl-top">
+          <label for="sampN">حجم نمونه (n)</label>
+          <span class="val" id="sampNVal">۱۰۰</span>
+        </div>
+        <input type="range" id="sampN" min="4" max="2500" step="1" value="100">
+      </div>
+
+      <div class="readouts">
+        <div class="readout" id="roSE"><span class="k">خطای استاندارد</span><span class="v" id="outSE">۱٫۰۰</span></div>
+        <div class="readout" id="roLo"><span class="k">کران پایین بازه</span><span class="v" id="outLo">۱۷۰٫۰</span></div>
+        <div class="readout" id="roHi"><span class="k">کران بالای بازه</span><span class="v" id="outHi">۱۷۴٫۰</span></div>
+        <div class="readout" id="roLen"><span class="k">طول بازه</span><span class="v" id="outLen">۴٫۰۰</span></div>
+      </div>
+
+      <div class="ci-viz">
+        <div class="cap">بازهٔ اطمینان ۹۵٪ حول میانگین نمونه (x̄ = ۱۷۲)</div>
+        <div class="ci-track" id="track">
+          <div class="ci-band" id="band"></div>
+          <div class="ci-point" id="point" style="right:64%;"></div>
+        </div>
+        <div class="ci-scale"><span>۱۶۵</span><span>۱۷۰</span><span>۱۷۵</span><span>۱۸۰</span></div>
+      </div>
+
+      <div class="btnrow">
+        <button class="act" id="btnQuad">۴ برابر کردن نمونه، چند برابر دقیق‌تر؟</button>
+        <button class="act ghost" id="btnReset1">بازنشانی</button>
+      </div>
+    </div>
+
+    <h3>بازهٔ اطمینان ۹۵٪</h3>
+    <p>بازهٔ اطمینان به ما می‌گوید میانگین واقعی جامعه در کدام محدوده احتمالاً قرار دارد:</p>
+
+    <div class="mathbox">
+      $$\bar{x} \pm 2\frac{\sigma}{\sqrt{n}}$$
+    </div>
+
+    <h3>مثال عددی کامل</h3>
+    <p>فرض کن σ = ۱۰، n = ۱۰۰ و میانگین نمونه ‎x̄ = ۱۷۲ باشد.</p>
+    <ul>
+      <li>خطای استاندارد: ۱۰ ÷ √۱۰۰ = ۱۰ ÷ ۱۰ = <b>۱</b></li>
+      <li>حاشیهٔ خطا: ۲ × ۱ = <b>۲</b></li>
+      <li>بازه: ۱۷۲ ± ۲ ⟵ از <b>۱۷۰</b> تا <b>۱۷۴</b></li>
+    </ul>
+
+    <div class="callout">
+      <span class="lbl">تفسیر درست</span>
+      اگر این کار نمونه‌گیری را بارها و بارها تکرار کنیم، حدود ۹۵ درصد از بازه‌هایی که به این روش می‌سازیم، میانگین واقعی جامعه را در خود جای می‌دهند.
+    </div>
+    <div class="callout">
+      <span class="lbl">جمله‌ای که نباید بگویی</span>
+      «۹۵ درصد احتمال دارد که میانگین واقعی بین ۱۷۰ و ۱۷۴ باشد.» میانگین واقعی یک عدد ثابت است؛ تصادفی نیست. آنچه تصادفی است، بازهٔ ماست. بله، این تفاوت ظریف تمام آزمون‌های آماری را خراب می‌کند — و امسال هم تقریباً همه در این تله می‌افتند. 😄
+    </div>
+  </section>
+
+  <!-- ================= MODULE 3 ================= -->
+  <section>
+    <h2><span class="num">۳</span> گردآوری داده‌ها و جمع‌بندی</h2>
+
+    <h3>جعبه‌ابزار پژوهشگر</h3>
+    <div class="tbl-scroll">
+      <table>
+        <thead>
+          <tr><th>ابزار</th><th>مزیت</th><th>عیب</th></tr>
+        </thead>
+        <tbody>
+          <tr><td>مشاهده</td><td>رفتار واقعی را ثبت می‌کند</td><td>حضور مشاهده‌گر رفتار را تغییر می‌دهد</td></tr>
+          <tr><td>پرسشنامه</td><td>ارزان و گسترده</td><td>وابسته به صداقت و دقت پاسخ‌دهنده</td></tr>
+          <tr><td>مصاحبه</td><td>عمق و امکان پیگیری</td><td>کند و پرهزینه</td></tr>
+          <tr><td>داده‌های موجود (دادگان)</td><td>سریع و کم‌هزینه</td><td>داده را برای سؤال تو طراحی نکرده‌اند</td></tr>
+        </tbody>
+      </table>
+    </div>
+
+    <h3>پارامتر در برابر آماره</h3>
+    <div class="terms">
+      <div class="term"><b>پارامتر</b><span>ویژگی کل جامعه (مثلاً میانگین واقعی همهٔ دانشجویان ایران). عددی ثابت اما ناشناخته.</span></div>
+      <div class="term"><b>آماره</b><span>ویژگی نمونه (مثلاً میانگین ۱۰۰ دانشجوی انتخاب‌شده). عددی شناخته‌شده اما متغیر از نمونه‌ای به نمونهٔ دیگر.</span></div>
+    </div>
+    <p>تمام کار ما این است: از آماره استفاده کنیم تا پارامتر را حدس بزنیم، و بدانیم این حدس چقدر خطا دارد.</p>
+
+    <!-- ============ INTERACTIVE LAB 2 ============ -->
+    <div class="lab">
+      <div class="lab-head">
+        <span class="badge">تعاملی</span>
+        <h4>آزمایشگاه ۲ — قیف ریشهٔ دوم</h4>
+      </div>
+      <p class="lab-sub">با بزرگ شدن حجم نمونه، خطای استاندارد کوچک می‌شود — اما نه به‌صورت خطی. ارتفاع میله‌ها را با اسلایدر زیر عوض کن.</p>
+
+      <div class="chart-wrap">
+        <div class="cap">خطای استاندارد در برابر حجم نمونه</div>
+        <svg class="chart" id="chart" viewBox="0 0 640 230" preserveAspectRatio="xMidYMid meet">
+          <line class="axis" x1="46" y1="190" x2="620" y2="190"></line>
+          <line class="axis" x1="46" y1="16" x2="46" y2="190"></line>
+          <text class="axis-lbl" x="10" y="20">۸٫۰</text>
+          <text class="axis-lbl" x="10" y="105">۴٫۰</text>
+          <text class="axis-lbl" x="10" y="193">۰</text>
+          <g id="barsG"></g>
+        </svg>
+      </div>
+
+      <div class="ctrl" style="margin-top:18px">
+        <div class="ctrl-top">
+          <label for="correctN">عامل افزایش حجم نمونه (n × k)</label>
+          <span class="val" id="correctNVal">۱</span>
+        </div>
+        <input type="range" id="correctN" min="1" max="16" step="1" value="1">
+      </div>
+
+      <div class="reveal" id="revealFx">
+        <div class="head" onclick="this.parentNode.classList.toggle('open')">
+          <span>چرا اثر ریشهٔ دوم این‌قدر غافلگیرکننده است؟</span>
+          <span class="chev">▾</span>
+        </div>
+        <div class="body">
+          <p>خطا با <span dir="ltr">1/√n</span> متناسب است. یعنی برای نصف کردن خطا باید n را چهار برابر کنی؛ برای یک‌دهم کردنش، n را صد برابر. این یک قاعدهٔ سختِ ریاضی است، نه تنبلی آماری: دقت، سرعت غیرخطی پیش نمی‌رود. در عمل همین است که توضیح می‌دهد چرا نظرسنجی‌های خوب با ۱۰۰۰ نفر کارشان راه می‌افتد، اما رفتن از ۱۰۰۰ به ۱۰۰۰۰ نفر تقریباً هیچ چیز تازه‌ای به دقت اضافه نمی‌کند.</p>
+        </div>
+      </div>
+
+      <div class="btnrow">
+        <button class="act ghost" id="btnReset2">بازنشانی</button>
+      </div>
+    </div>
+  </section>
+
+  <!-- ================= SUMMARY ================= -->
+  <section>
+    <h2><span class="num">۴</span> جمع‌بندی دوره</h2>
+    <p>اگر فقط سه جمله از این صفحه در ذهنت بماند، همین‌ها را می‌خواهم:</p>
+    <ul>
+      <li><b>نمونهٔ خوب، نه نمونهٔ بزرگ</b> — کیفیت روش از حجم مهم‌تر است.</li>
+      <li><b>هیچ برآوردی بدون بیان عدم قطعیتش کامل نیست.</b></li>
+      <li><b>آمار ابزار تصمیم‌گیری در نبود قطعیت است، نه ابزار قطعیت‌سازی.</b></li>
+    </ul>
+  </section>
+
+  <footer>
+    دورهٔ جامع آمار استنباطی — نسخهٔ تعاملی<br>
+    ساخته‌شده برای انتشار روی GitHub Pages
+  </footer>
+</div>
+
+<script>
+(function(){
+  "use strict";
+
+  var FA_DIGITS = ['۰','۱','۲','۳','۴','۵','۶','۷','۸','۹'];
+  function fa(str){
+    return String(str).replace(/\d/g, function(d){ return FA_DIGITS[+d]; });
+  }
+  function fmt(x, dec){
+    dec = (dec === undefined) ? 2 : dec;
+    var s = x.toFixed(dec).replace('.', '٫');
+    return fa(s);
+  }
+
+  /* =========================================================
+     LAB 1 — Standard error calculator
+     ========================================================= */
+  var XBAR = 172;          // sample mean for the CI visualization
+  var DOMAIN_LO = 165;     // left edge of the CI track
+  var DOMAIN_HI = 180;     // right edge of the CI track
+
+  var elSigma    = document.getElementById('sigma');
+  var elSigmaVal = document.getElementById('sigmaVal');
+  var elN        = document.getElementById('sampN');
+  var elNVal     = document.getElementById('sampNVal');
+  var outSE      = document.getElementById('outSE');
+  var outLo      = document.getElementById('outLo');
+  var outHi      = document.getElementById('outHi');
+  var outLen     = document.getElementById('outLen');
+  var band       = document.getElementById('band');
+  var point      = document.getElementById('point');
+  var readouts   = ['roSE','roLo','roHi','roLen'];
+
+  function pulse(){
+    readouts.forEach(function(id){
+      var el = document.getElementById(id);
+      el.classList.add('pulse');
+      setTimeout(function(){ el.classList.remove('pulse'); }, 180);
+    });
+  }
+
+  function updateLab1(){
+    var sigma = +elSigma.value;
+    var n     = +elN.value;
+
+    elSigmaVal.textContent = fa(sigma);
+    elNVal.textContent     = fa(n);
+
+    var se  = sigma / Math.sqrt(n);
+    var moe = 2 * se;
+    var lo  = XBAR - moe;
+    var hi  = XBAR + moe;
+
+    outSE.textContent  = fmt(se, 2);
+    outLo.textContent  = fmt(lo, 1);
+    outHi.textContent  = fmt(hi, 1);
+    outLen.textContent = fmt(2 * moe, 2);
+
+    // map values onto the CI track (percent from the right, since page is RTL-aware layout)
+    var span = DOMAIN_HI - DOMAIN_LO;
+    var pctLo = (DOMAIN_HI - hi) / span * 100;  // distance from right edge
+    var pctHi = (DOMAIN_HI - lo) / span * 100;
+    var width = Math.max(pctHi - pctLo, 0.8);
+
+    // clamp so the band never leaves the track
+    if (pctLo < 0) { width += pctLo; pctLo = 0; }
+    if (pctLo + width > 100) { width = 100 - pctLo; }
+
+    band.style.right = pctLo + '%';
+    band.style.width = width + '%';
+
+    var pctPoint = (DOMAIN_HI - XBAR) / span * 100;
+    point.style.right = pctPoint + '%';
+
+    pulse();
+  }
+
+  elSigma.addEventListener('input', updateLab1);
+  elN.addEventListener('input', updateLab1);
+
+  document.getElementById('btnQuad').addEventListener('click', function(){
+    var target = Math.min(+elN.value * 4, +elN.max);
+    animateSlider(elN, +elN.value, target, 420, updateLab1);
+  });
+
+  document.getElementById('btnReset1').addEventListener('click', function(){
+    elSigma.value = 10;
+    elN.value = 100;
+    updateLab1();
+  });
+
+  /* Smoothly animate a range input's value */
+  function animateSlider(input, from, to, duration, cb){
+    var start = null;
+    function step(ts){
+      if (start === null) start = ts;
+      var t = Math.min((ts - start) / duration, 1);
+      // easeOutCubic for a snappy but smooth feel
+      var eased = 1 - Math.pow(1 - t, 3);
+      input.value = Math.round(from + (to - from) * eased);
+      cb();
+      if (t < 1) requestAnimationFrame(step);
+    }
+    requestAnimationFrame(step);
+  }
+
+  /* =========================================================
+     LAB 2 — Root-n funnel chart
+     ========================================================= */
+  var CHART = {
+    x0: 46, y0: 190,
+    w: 574, h: 174,
+    sigma0: 8          // reference SE when n = base
+  };
+
+  var BARS = [
+    { label: 'n',      mult: 1 },
+    { label: '۲n',     mult: 2 },
+    { label: '۴n',     mult: 4 },
+    { label: '۸n',     mult: 8 },
+    { label: '۱۶n',    mult: 16 }
+  ];
+
+  var barsG    = document.getElementById('barsG');
+  var elK      = document.getElementById('correctN');
+  var elKVal   = document.getElementById('correctNVal');
+
+  function buildBars(){
+    barsG.innerHTML = '';
+    var slotW = CHART.w / BARS.length;
+    var barW  = Math.min(slotW * 0.55, 62);
+
+    BARS.forEach(function(b, i){
+      var cx = CHART.x0 + slotW * i + slotW / 2;
+      var se = CHART.sigma0 / Math.sqrt(b.mult);
+      var h  = (se / CHART.sigma0) * CHART.h * 0.92;
+      var y  = CHART.y0 - h;
+
+      var rect = document.createElementNS('http://www.w3.org/2000/svg','rect');
+      rect.setAttribute('class','bar');
+      rect.setAttribute('x', cx - barW/2);
+      rect.setAttribute('y', y);
+      rect.setAttribute('width', barW);
+      rect.setAttribute('height', h);
+      rect.setAttribute('rx', 7);
+      rect.setAttribute('fill','url(#barGrad)');
+      rect.dataset.i = i;
+
+      var lbl = document.createElementNS('http://www.w3.org/2000/svg','text');
+      lbl.setAttribute('class','bar-lbl');
+      lbl.setAttribute('x', cx);
+      lbl.setAttribute('y', y - 6);
+      lbl.setAttribute('text-anchor','middle');
+      lbl.textContent = fmt(se, 2);
+
+      var xl = document.createElementNS('http://www.w3.org/2000/svg','text');
+      xl.setAttribute('class','axis-lbl');
+      xl.setAttribute('x', cx);
+      xl.setAttribute('y', CHART.y0 + 14);
+      xl.setAttribute('text-anchor','middle');
+      xl.textContent = b.label;
+
+      barsG.appendChild(rect);
+      barsG.appendChild(lbl);
+      barsG.appendChild(xl);
+    });
+  }
+
+  function highlight(k){
+    var rects = barsG.querySelectorAll('rect.bar');
+    rects.forEach(function(r, i){
+      var mult = BARS[i].mult;
+      if (mult >= k) {
+        r.setAttribute('fill','#c2410c');
+        r.setAttribute('opacity','0.95');
+      } else {
+        r.setAttribute('fill','url(#barGrad)');
+        r.setAttribute('opacity','0.45');
+      }
+    });
+  }
+
+  // gradient definition must exist before bars reference it
+  (function injectGradient(){
+    var defs = document.createElementNS('http://www.w3.org/2000/svg','defs');
+    defs.innerHTML =
+      '<linearGradient id="barGrad" x1="0" y1="0" x2="0" y2="1">' +
+      '<stop offset="0%" stop-color="#0f766e"/>' +
+      '<stop offset="100%" stop-color="#5eead4"/>' +
+      '</linearGradient>';
+    var svg = document.getElementById('chart');
+    svg.insertBefore(defs, svg.firstChild);
+  })();
+
+  function updateLab2(){
+    var k = +elK.value;
+    elKVal.textContent = fa(k);
+    highlight(k);
+  }
+
+  elK.addEventListener('input', updateLab2);
+  document.getElementById('btnReset2').addEventListener('click', function(){
+    animateSlider(elK, +elK.value, 1, 380, updateLab2);
+    document.getElementById('revealFx').classList.remove('open');
+  });
+
+  /* =========================================================
+     INIT
+     ========================================================= */
+  function init(){
+    buildBars();
+    updateLab1();
+    updateLab2();
+  }
+
+  if (document.readyState === 'loading') {
+    document.addEventListener('DOMContentLoaded', init);
+  } else {
+    init();
+  }
+})();
+</script>
+</body>
+</html>
